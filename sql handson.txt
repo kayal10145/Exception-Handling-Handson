@@ -1,0 +1,182 @@
+mysql> create database electricity_connection_type;
+ERROR 1007 (HY000): Can't create database 'electricity_connection_type'; database exists
+mysql> show databases;
++-----------------------------+
+| Database                    |
++-----------------------------+
+| electricity_connection_type |
+| information_schema          |
+| mysql                       |
+| performance_schema          |
+| sys                         |
++-----------------------------+
+5 rows in set (0.00 sec)
+
+mysql> use electricity_connection_type;
+Database changed
+mysql> create table slab(id INT(11),connection_type_id INT(11),from_unit INT NOT NULL,to_unit INT NOT NULL,rate double NOT NULL,PRIMARY KEY(id,connection_type_id));
+Query OK, 0 rows affected, 2 warnings (0.08 sec)
+
+mysql> desc slab;
++--------------------+--------+------+-----+---------+-------+
+| Field              | Type   | Null | Key | Default | Extra |
++--------------------+--------+------+-----+---------+-------+
+| id                 | int    | NO   | PRI | NULL    |       |
+| connection_type_id | int    | NO   | PRI | NULL    |       |
+| from_unit          | int    | NO   |     | NULL    |       |
+| to_unit            | int    | NO   |     | NULL    |       |
+| rate               | double | NO   |     | NULL    |       |
++--------------------+--------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> create table building_type(id INT,name varchar(100) NOT NULL,connection_type_id INT NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc building_type;
++--------------------+--------------+------+-----+---------+-------+
+| Field              | Type         | Null | Key | Default | Extra |
++--------------------+--------------+------+-----+---------+-------+
+| id                 | int          | NO   | PRI | NULL    |       |
+| name               | varchar(100) | NO   |     | NULL    |       |
+| connection_type_id | int          | NO   |     | NULL    |       |
++--------------------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>  create table building (id int,owner_name varchar(100) NOT NULL,address varchar(100) NOT NULL,building_type_id int NOT NULL,contact_number varchar(100) NOT NULL,email_address varchar(100),PRIMARY KEY (id));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> desc building;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| id               | int          | NO   | PRI | NULL    |       |
+| owner_name       | varchar(100) | NO   |     | NULL    |       |
+| address          | varchar(100) | NO   |     | NULL    |       |
+| building_type_id | int          | NO   |     | NULL    |       |
+| contact_number   | varchar(100) | NO   |     | NULL    |       |
+| email_address    | varchar(100) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql>  alter table building DROP COLUMN owner_name;
+Query OK, 0 rows affected (0.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>  alter table building  ADD building_owner_name varchar(100);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc building;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| id                  | int          | NO   | PRI | NULL    |       |
+| address             | varchar(100) | NO   |     | NULL    |       |
+| building_type_id    | int          | NO   |     | NULL    |       |
+| contact_number      | varchar(100) | NO   |     | NULL    |       |
+| email_address       | varchar(100) | YES  |     | NULL    |       |
+| building_owner_name | varchar(100) | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table building MODIFY address varchar(255);
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc building;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| id                  | int          | NO   | PRI | NULL    |       |
+| address             | varchar(255) | YES  |     | NULL    |       |
+| building_type_id    | int          | NO   |     | NULL    |       |
+| contact_number      | varchar(100) | NO   |     | NULL    |       |
+| email_address       | varchar(100) | YES  |     | NULL    |       |
+| building_owner_name | varchar(100) | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> alter table building RENAME TO building_details;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc building_details;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| id                  | int          | NO   | PRI | NULL    |       |
+| address             | varchar(255) | YES  |     | NULL    |       |
+| building_type_id    | int          | NO   |     | NULL    |       |
+| contact_number      | varchar(100) | NO   |     | NULL    |       |
+| email_address       | varchar(100) | YES  |     | NULL    |       |
+| building_owner_name | varchar(100) | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> DROP TABLE slab;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> DROP TABLE building_details;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++---------------------------------------+
+| Tables_in_electricity_connection_type |
++---------------------------------------+
+| building_type                         |
++---------------------------------------+
+1 row in set (0.02 sec)
+
+mysql> create table electricity_connection_type (id int,connection_name varchar(100) NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> INSERT INTO electricity_connection_type values (1,'WIFI');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO electricity_connection_type values (2,'broadband_connection');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> desc electricity_connection_type;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| id              | int          | NO   | PRI | NULL    |       |
+| connection_name | varchar(100) | NO   |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from electricity_connection_type;
++----+----------------------+
+| id | connection_name      |
++----+----------------------+
+|  1 | WIFI                 |
+|  2 | broadband_connection |
++----+----------------------+
+2 rows in set (0.00 sec)
+
+ERROR 1146 (42S02): Table 'electricity_connection_type.slab' doesn't exist
+mysql> INSERT INTO building_type values (1,'kayal',3);
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  INSERT INTO building_type values (2,'honey',5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO building_type values (3,'yokesh',7);
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  INSERT INTO building_type values (4,'jaya',11);
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  INSERT INTO building_type values (5,'subuk',13);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from building_type;
++----+--------+--------------------+
+| id | name   | connection_type_id |
++----+--------+--------------------+
+|  1 | kayal  |                  3 |
+|  2 | honey  |                  5 |
+|  3 | yokesh |                  7 |
+|  4 | jaya   |                 11 |
+|  5 | subuk  |                 13 |
++----+--------+--------------------+
+5 rows in set (0.00 sec)

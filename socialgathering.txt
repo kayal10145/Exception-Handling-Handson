@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>_</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto ;
+            width: 50%;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Social Gathering</h1> 
+    <div>
+        <a href="Socialgathering.html" target="blank"></a>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRYVvJmTbzDKJ6IgsU0fFc2P79gfg1tkJno6A&usqp=CAU" alt="Social Gathering" class='center' height="350" width="450" > 
+     </div>
+</body>
+</body>
+</html>
